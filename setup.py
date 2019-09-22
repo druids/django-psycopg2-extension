@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="django-psycopg2-extension",
-    version='0.0.1',
+    version='0.0.2',
     description="",
     author='Lubos Matl',
     author_email='matllubos@gmail.com',
