@@ -7,7 +7,7 @@ Library contains django commands which helps prepare and manage PostgreSQL datab
 Install djjango-psycopg2-extension
 
 ```bash
-pip install jango-psycopg2-extension
+pip install django-psycopg2-extension
 ```
 
 Add psycopg2_extension to your `INSTALLED_APPS`:

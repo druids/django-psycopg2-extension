@@ -16,7 +16,9 @@ class PsycopgBaseCommand(BaseCommand):
         )
 
     def _create_connection(self, db_object):
-        if db_object['ENGINE'] not in {'django.db.backends.postgresql_psycopg2', 'django.db.backends.postgresql'}:
+        if db_object['ENGINE'] not in {'django.db.backends.postgresql_psycopg2',
+                                       'django.db.backends.postgresql',
+                                       'django.contrib.gis.db.backends.postgis'}:
             raise CommandError('The supplied DB object targets unsupported database backend!')
 
         con = psycopg2.connect(
