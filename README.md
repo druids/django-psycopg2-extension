@@ -1,6 +1,6 @@
 # Django-psycopg2-extension
 
-Library contains django commands which helps prepare and manage PostgreSQL database.
+Library contains django commands which helps to prepare and manage PostgreSQL database.
 
 ## Quickstart
 
@@ -29,4 +29,11 @@ If you are using some Postgres extenstions you can define it with `PSYCOPG2_EXTE
 
 ### cleandb
 
-PostgreSQL database requires often call `VACUUM FULL` and `REINDEX`. The command `cleandb` performs these operations. Again you can specify database or root user with `--db-url` parameter.
+PostgreSQL database requires often call `VACUUM` and `REINDEX`. The command `cleandb` performs these operations. Again you can specify database or root user with `--db-url` parameter.
+
+Command can be configured with these django config settings::
+
+* PSYCOPG2_EXTENSION_EXCLUDE_TABLES - set of excluded tables for cleanup.
+* PSYCOPG2_EXTENSION_EXCLUDE_VACUUM_TABLES - set of excluded tables for vacuum command.
+* PSYCOPG2_EXTENSION_EXCLUDE_REINDEX_TABLESS - set of excluded tables for reindex command.
+* PSYCOPG2_EXTENSION_FULL_VACUUM_TABLES - set of tables where full vacuum will be used.
