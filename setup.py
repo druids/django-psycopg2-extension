@@ -11,7 +11,7 @@ setup(
     name="django-psycopg2-extension",
     long_description=read('README.md'),
     long_description_content_type='text/markdown',
-    version='0.0.3',
+    version='0.0.4',
     description="Library contains django commands which helps to prepare and manage PostgreSQL database.",
     author='Lubos Matl',
     author_email='matllubos@gmail.com',
