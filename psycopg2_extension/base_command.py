@@ -14,6 +14,12 @@ class PsycopgBaseCommand(BaseCommand):
             dest='db_url',
             help='Connection string to Database',
         )
+        parser.add_argument(
+            '--database',
+            dest='database',
+            help='Database name in django settings',
+            default='default'
+        )
 
     def _create_connection(self, db_object):
         if db_object['ENGINE'] not in {'django.db.backends.postgresql_psycopg2',
@@ -34,7 +40,7 @@ class PsycopgBaseCommand(BaseCommand):
         if options['db_url']:
             db_object = Env.db_url_config(options['db_url'])
         else:
-            db_object = settings.DATABASES['default']
+            db_object = settings.DATABASES[options['database']]
         db_object['MASTER_USER'] = db_object['USER']
         db_object['MASTER_PASSWORD'] = db_object['PASSWORD']
         return db_object
