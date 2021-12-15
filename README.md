@@ -21,19 +21,44 @@ INSTALLED_APPS = [
 
 ## Commands
 
-### initdb
+### psqlinit
 
-Django command initdb create a database defined in django settings. If postgres user is not allowed to create database you can define it via `--db-url` parameter (format from [django-environ](https://github.com/joke2k/django-environ)) 
+Django command psqlinit create a database defined in django settings. 
 
-If you are using some Postgres extenstions you can define it with `PSYCOPG2_EXTENSIONS` setting (list of extension names). Command will automatically create it.
+You can define specific database settings with standard django ``DATABASE`` settings:
 
-### cleandb
+```python
+DATABASES = {
+    'default': {
+        ...
+        'EXTENSIONS': ['postgis', 'unaccent'],  # extensions to be installed with psqlinit command
+        'SNAPSHOT_FILE': Path('data', 'sql', 'local', 'init_default.sql'), # SQL which will be loaded after database initialization
+    },
+}
+```
 
-PostgreSQL database requires often call `VACUUM` and `REINDEX`. The command `cleandb` performs these operations. Again you can specify database or root user with `--db-url` parameter.
+Snapshot and extensions are automatically loaded when database is preparing for tests too.
 
-Command can be configured with these django config settings::
+### psqlclean
 
-* PSYCOPG2_EXTENSION_EXCLUDE_TABLES - set of excluded tables for cleanup.
-* PSYCOPG2_EXTENSION_EXCLUDE_VACUUM_TABLES - set of excluded tables for vacuum command.
-* PSYCOPG2_EXTENSION_EXCLUDE_REINDEX_TABLESS - set of excluded tables for reindex command.
-* PSYCOPG2_EXTENSION_FULL_VACUUM_TABLES - set of tables where full vacuum will be used.
+PostgreSQL database requires often call `VACUUM` and `REINDEX`. The command `psqlclean` performs these operations. 
+
+You can define specific database settings for psqlclean command with standard django ``DATABASE`` settings:
+
+```python
+DATABASES = {
+    'default': {
+        ...
+        'VACUUM': {
+            'EXCLUDE': ['users_user'],  # list of excluded tables
+            'TABLES': ['users_permission'],  # list of tables to vacuum, all tables are selected if the setting is not set
+            'TABLES_FULL': ['users_permission'],  # list of tables to vacuum full
+            'TABLES_REINDEX': ['users_permission'],  # list of tables to reindex
+        }
+    },
+}
+```
+
+### psqlsnapshot
+
+Command which creates SQL dump with ``pg_dump`` script and store it to the database ``'SNAPSHOT_FILE'`` setting.

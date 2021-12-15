@@ -30,8 +30,7 @@ setup(
         'Topic :: Internet :: WWW/HTTP',
     ],
     install_requires=[
-        'django>=1.11',
-        'django-environ>=0.4.5',
+        'django>=3.1,<4.0',
     ],
     zip_safe=False
 )
