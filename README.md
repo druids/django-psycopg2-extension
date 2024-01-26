@@ -62,3 +62,28 @@ DATABASES = {
 ### psqlsnapshot
 
 Command which creates SQL dump with ``pg_dump`` script and store it to the database ``'SNAPSHOT_FILE'`` setting.
+
+### psqlviews
+
+Command which creates views defined in ``'VIEWS'`` setting.
+
+```python
+DATABASES = {
+    'default': {
+        ...
+        'VIEWS': {
+            'MODELS': {
+                'auth.users': ['id', 'email', 'first_name', 'last_name'], # Model name and list of fields
+            },
+            'SCHEMA': 'public', # Schema name
+        }
+    }
+}
+```
+
+Now you can call `psqlviews` command to create or remove views.
+
+```bash
+./manage.py psqlviews --create
+./manage.py psqlviews --delete
+```
